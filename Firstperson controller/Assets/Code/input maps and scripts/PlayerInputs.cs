@@ -52,7 +52,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Move"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""e7e79184-c782-4063-bfe7-20a926bcc978"",
                     ""expectedControlType"": ""Stick"",
                     ""processors"": """",
@@ -60,7 +60,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Look"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""c0ede70c-6eb1-46b8-8a17-341d021ea368"",
                     ""expectedControlType"": ""Stick"",
                     ""processors"": """",
