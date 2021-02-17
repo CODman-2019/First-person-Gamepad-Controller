@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player_CameraControl : MonoBehaviour
 {
-    public float hipSpeed, AimSpeed;
+    public float hipSpeed, aimSpeed;
     PlayerInputs inputs;
 
     float speed;
@@ -20,14 +20,18 @@ public class Player_CameraControl : MonoBehaviour
 
         inputs.Gamepadcontrols.Look.performed += ctx => look = ctx.ReadValue<Vector2>();
         inputs.Gamepadcontrols.Look.canceled += ctx => look = Vector2.zero;
-        
-        
-    }
 
-    void ChangeCameraSpeed()
-    {
+        inputs.Gamepadcontrols.AimDown.performed += ctx => speed = aimSpeed;
+        inputs.Gamepadcontrols.AimDown.canceled += ctx => speed = hipSpeed;
 
     }
+
+
+    //void ChangeCameraSpeed()
+    //{
+    //    if (speed == hipSpeed) speed = aimSpeed;
+    //    else speed = hipSpeed;
+    //}
 
     // Update is called once per frame
     void Update()

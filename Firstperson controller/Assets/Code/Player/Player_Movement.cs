@@ -5,17 +5,18 @@ using UnityEngine.InputSystem;
 
 public class Player_Movement : MonoBehaviour
 {
-    public float walk, run, hipSpeed, AimSpeed;
+    public float walk, run, hipSpeed, aimSpeed;
 
     PlayerInputs inputs;
-    float speed;
+    float speed, camSpeed;
     Vector2 move, look;
-    bool canMove;
+    bool canMove, canSprint;
 
     // Start is called before the first frame update
     void Awake()
     {
         speed = walk;
+        camSpeed = hipSpeed;
         inputs = new PlayerInputs();
 
         inputs.Gamepadcontrols.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
@@ -25,6 +26,9 @@ public class Player_Movement : MonoBehaviour
         inputs.Gamepadcontrols.Look.canceled += ctx => look = Vector2.zero;
 
         inputs.Gamepadcontrols.Sprinttoggle.performed += ctx => ChangeSpeed();
+
+        inputs.Gamepadcontrols.AimDown.performed += ctx => camSpeed = aimSpeed;
+        inputs.Gamepadcontrols.AimDown.canceled += ctx => camSpeed = hipSpeed;
     }
 
     void ChangeSpeed()
@@ -33,12 +37,25 @@ public class Player_Movement : MonoBehaviour
         else speed = walk;
     }
 
+    //void ChangeCameraSpeed()
+    //{
+    //    if (speed == hipSpeed) speed = aimSpeed;
+    //    else speed = hipSpeed;
+    //}
+
     // Update is called once per frame
     void Update()
     {
         transform.Translate(move.x * speed * Time.deltaTime, 0f, move.y * speed * Time.deltaTime);
-        transform.Rotate(0f, look.x * speed * Time.deltaTime, 0f);
+        transform.Rotate(0f, look.x * camSpeed * Time.deltaTime, 0f);
     }
+
+
+    public bool SetCanMove(bool setting) => canMove = setting;
+    public bool SetCanSprint(bool setting) => canSprint = setting;
+    public bool GetCanMove() => canMove;
+    public bool GetCanSprint() => canSprint;
+
 
     private void OnEnable()
     {

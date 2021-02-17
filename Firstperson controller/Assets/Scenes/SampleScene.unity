@@ -420,8 +420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428d8f960a90d244f8c87a0d78d727e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hipSpeed: 45
-  AimSpeed: 15
+  hipSpeed: 90
+  aimSpeed: 45
 --- !u!1 &1351946818
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,4 +550,4 @@ MonoBehaviour:
   walk: 10
   run: 20
   hipSpeed: 90
-  AimSpeed: 35
+  aimSpeed: 45
