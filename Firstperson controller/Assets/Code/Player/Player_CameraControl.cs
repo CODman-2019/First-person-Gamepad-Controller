@@ -5,18 +5,20 @@ using UnityEngine.InputSystem;
 
 public class Player_CameraControl : MonoBehaviour
 {
-    public float hipSpeed, aimSpeed;
+    public float hipSpeed, aimSpeed, lookRange;
     PlayerInputs inputs;
 
-    float speed;
+    float speed, yCamera;
     Vector2 look;
-    bool canLook;
+    bool canLook, lookUp, lookDown;
 
     void Awake()
     {
         speed = hipSpeed;
+        lookUp = true;
+        lookDown = true;
+
         inputs = new PlayerInputs();
-        Mathf.Clamp(transform.rotation.x, -90f, 90f);
 
         inputs.Gamepadcontrols.Look.performed += ctx => look = ctx.ReadValue<Vector2>();
         inputs.Gamepadcontrols.Look.canceled += ctx => look = Vector2.zero;
@@ -26,19 +28,25 @@ public class Player_CameraControl : MonoBehaviour
 
     }
 
-
-    //void ChangeCameraSpeed()
-    //{
-    //    if (speed == hipSpeed) speed = aimSpeed;
-    //    else speed = hipSpeed;
-    //}
-
     // Update is called once per frame
     void Update()
-    {
+    {   
+        yCamera = -look.y * speed * Time.deltaTime;
+        yCamera = Mathf.Clamp(yCamera, -lookRange, lookRange);
 
-        transform.Rotate(-look.y * speed * Time.deltaTime, 0f, 0f);
-        //transform.rotation.z = 0;
+        //transform.localRotation = Quaternion.Euler(yCamera, 0f, 0f);
+        transform.Rotate(yCamera, 0f, 0f);
+        //transform.eulerAngles = new Vector3(yCamera, 0f, 0f);
+     
+        //if(transform.rotation.x < -lookRange)
+        //{
+        //    transform.Rotate(1f, 0f, 0f);
+        //}
+        //if(transform.rotation.x > lookRange)
+        //{
+        //    transform.Rotate(-1f, 0f, 0f);
+        //}
+
     }
 
     private void OnEnable()
@@ -50,3 +58,13 @@ public class Player_CameraControl : MonoBehaviour
         inputs.Gamepadcontrols.Disable();
     }
 }
+
+        //if (transform.rotation.x > lookMax)
+        //{
+        //    look.y = 0;
+        //}
+
+        //if(transform.rotation.x < lookMin)
+        //{
+        //    look.y = 0;
+        //}
