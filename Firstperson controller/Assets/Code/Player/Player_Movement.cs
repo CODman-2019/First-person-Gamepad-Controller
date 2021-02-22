@@ -17,6 +17,7 @@ public class Player_Movement : MonoBehaviour
     {
         speed = walk;
         camSpeed = hipSpeed;
+
         inputs = new PlayerInputs();
 
         inputs.Gamepadcontrols.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
