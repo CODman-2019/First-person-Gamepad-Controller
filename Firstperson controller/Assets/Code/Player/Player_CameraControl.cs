@@ -9,6 +9,7 @@ public class Player_CameraControl : MonoBehaviour
     PlayerInputs inputs;
 
     float speed, yCamera;
+    float xRotation = 0f;
     Vector2 look;
     bool canLook, lookUp, lookDown;
 
@@ -17,7 +18,7 @@ public class Player_CameraControl : MonoBehaviour
         speed = hipSpeed;
         lookUp = true;
         lookDown = true;
-
+        
         inputs = new PlayerInputs();
 
         inputs.Gamepadcontrols.Look.performed += ctx => look = ctx.ReadValue<Vector2>();
@@ -31,13 +32,15 @@ public class Player_CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        yCamera = -look.y * speed * Time.deltaTime;
-        yCamera = Mathf.Clamp(yCamera, -lookRange, lookRange);
+        yCamera = look.y * speed * Time.deltaTime;
+        xRotation -= yCamera;
+        //yCamera= Mathf.Clamp(yCamera, -lookRange, lookRange);
+        xRotation = Mathf.Clamp(xRotation, -lookRange, lookRange);
 
-        //transform.localRotation = Quaternion.Euler(yCamera, 0f, 0f);
-        transform.Rotate(yCamera, 0f, 0f);
-        //transform.eulerAngles = new Vector3(yCamera, 0f, 0f);
-     
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        //transform.Rotate(yCamera, 0f, 0f);
+        //transform.Rotate(xRotation,0f, 0f);
+
         //if(transform.rotation.x < -lookRange)
         //{
         //    transform.Rotate(1f, 0f, 0f);
