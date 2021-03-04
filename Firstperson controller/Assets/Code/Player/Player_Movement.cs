@@ -6,15 +6,21 @@ using UnityEngine.InputSystem;
 public class Player_Movement : MonoBehaviour
 {
     public float walk, run, hipSpeed, aimSpeed;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask, wallMask; 
 
     PlayerInputs inputs;
+
+    Transform ground_Check;
     float speed, camSpeed;
     Vector2 move, look;
-    bool canMove, canSprint;
+    bool canMove, canSprint, onGround;
 
-    // Start is called before the first frame update
     void Awake()
     {
+        ground_Check = GameObject.FindGameObjectWithTag("Player_GCheck").transform;
+        
+
         speed = walk;
         camSpeed = hipSpeed;
 
@@ -47,6 +53,8 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        onGround = Physics.CheckSphere(ground_Check.position, groundDistance, groundMask);
+
         transform.Translate(move.x * speed * Time.deltaTime, 0f, move.y * speed * Time.deltaTime);
         transform.Rotate(0f, look.x * camSpeed * Time.deltaTime, 0f);
     }
