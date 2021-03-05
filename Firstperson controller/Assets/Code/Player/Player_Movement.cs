@@ -18,8 +18,7 @@ public class Player_Movement : MonoBehaviour
 
     void Awake()
     {
-        ground_Check = GameObject.FindGameObjectWithTag("Player_GCheck").transform;
-        
+        //ground_Check = GameObject.FindGameObjectWithTag("Player_GCheck").transform;
 
         speed = walk;
         camSpeed = hipSpeed;

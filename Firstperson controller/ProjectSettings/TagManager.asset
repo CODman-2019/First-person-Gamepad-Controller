@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Player_GCheck
+  - Player_LWallCheck
+  - Player_RWallCheck
   layers:
   - Default
   - TransparentFX
