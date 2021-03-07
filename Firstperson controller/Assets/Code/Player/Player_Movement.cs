@@ -7,7 +7,7 @@ public class Player_Movement : MonoBehaviour
 {
     public float walk, run, hipSpeed, aimSpeed;
     public float groundDistance = 0.4f;
-    public LayerMask groundMask, wallMask; 
+    public LayerMask groundMask; 
 
     PlayerInputs inputs;
 
@@ -15,11 +15,12 @@ public class Player_Movement : MonoBehaviour
     float speed, camSpeed;
     Vector2 move, look;
     bool canMove, canSprint, onGround;
+    Rigidbody rb;
 
     void Awake()
     {
-        //ground_Check = GameObject.FindGameObjectWithTag("Player_GCheck").transform;
-
+        ground_Check = GameObject.FindGameObjectWithTag("Player_GCheck").transform;
+        rb = this.GetComponent<Rigidbody>();
         speed = walk;
         camSpeed = hipSpeed;
 
@@ -55,6 +56,7 @@ public class Player_Movement : MonoBehaviour
         onGround = Physics.CheckSphere(ground_Check.position, groundDistance, groundMask);
 
         transform.Translate(move.x * speed * Time.deltaTime, 0f, move.y * speed * Time.deltaTime);
+        //rb.AddForce(new Vector3(move.x * speed * Time.deltaTime, 0f, move.y * speed * Time.deltaTime), ForceMode.Force);
         transform.Rotate(0f, look.x * camSpeed * Time.deltaTime, 0f);
     }
 
